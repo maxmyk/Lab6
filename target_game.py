@@ -21,9 +21,8 @@ def get_words(file: str, letters: List[str]) -> List[str]:
     from collections import Counter
     words = set()
     file = 'en'
-    filea = open(file, "r", encoding='utf-8')
     with open(file, "r", encoding='utf-8') as file:
-        for line in filea:
+        for line in file:
             line = line.lower()
             line = line.strip()
 
@@ -32,12 +31,10 @@ def get_words(file: str, letters: List[str]) -> List[str]:
                     for i in range(len(line)):
                         if line[i]!='-': letters1.append(line[i])
                     letters1_occ = Counter(letters1)
-                    #letters1_occ = sorted(letters1_occ)
                     # letters = [letters[0][0],letters[0][1],letters[0][2],
                     #            letters[1][0],letters[1][1],letters[1][2],
                     #            letters[2][0],letters[2][1],letters[2][2]]
                     letters_occ = Counter(letters)
-                    #letters_occ = sorted(letters_occ)
                     if letters1_occ - letters_occ == Counter():
                         if len(line)%2 != 0:
                             if line[len(line)//2] == letters[4]:
@@ -46,9 +43,7 @@ def get_words(file: str, letters: List[str]) -> List[str]:
                             if (line[len(line)//2] == letters[4]
                             or line[len(line)//2-1] == letters[4]):
                                 words.add(line)
-    return words
-
-get_words('en', 'jniarnoah')
+    return list(words)
 
 
 def get_user_words() -> List[str]:
@@ -69,7 +64,19 @@ def get_pure_user_words(user_words: List[str], letters: List[str], words_from_di
     Checks user words with the rules and returns list of those words
     that are not in dictionary.
     """
-    pass
+    words = set()
+    for word in user_words:
+        for wordd in words_from_dict:
+            if word != wordd:
+                if len(word)%2 != 0:
+                    if word[len(word)//2] != letters[4]:
+                        words.add(word)
+                else:
+                    if (word[len(word)//2] != letters[4]
+                    or word[len(word)//2-1] != letters[4]):
+                        words.add(word)
+    return list(words)
+
 
 def results():
     url = "en"
