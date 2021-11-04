@@ -1,4 +1,11 @@
+"""
+Target game
+"""
+
 from typing import List
+"""
+Importing Lists
+"""
 
 def generate_grid() -> List[List[str]]:
     """
@@ -52,12 +59,14 @@ def get_user_words() -> List[str]:
     Usage: enter a word or press ctrl+d to finish.
     """
     from sys import stdin
-    u_words = []
+    u_words = set()
     for line in stdin:
-        u_words.append(line[:len(line) - 1])
+        u_words.add(line[:-1])
     return u_words
 
-def get_pure_user_words(user_words: List[str], letters: List[str], words_from_dict: List[str]) -> List[str]:
+
+def get_pure_user_words(user_words: List[str
+], letters: List[str], words_from_dict: List[str]) -> List[str]:
     """
     (list, list, list) -> list
 
