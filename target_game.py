@@ -14,10 +14,15 @@ def generate_grid() -> List[List[str]]:
     return grid
 
 
-def get_words(f: str, letters: List[str]) -> List[str]:
+def get_words(file: str, letters: List[str]) -> List[str]:
     """
     Reads the file f. Checks the words with rules and returns a list of words.
     """
+    filea = open(file, "w", encoding='utf-8')
+    for line in filea:
+        line = line.lower()
+        line = line.strip()
+
     pass
 
 
@@ -27,6 +32,10 @@ def get_user_words() -> List[str]:
     Gets words from user input and returns a list with these words.
     Usage: enter a word or press ctrl+d to finish.
     """
+    u_words = []
+    for line in input():
+        u_words.append(line[:len(line) - 1])
+    return u_words
     pass
 
 

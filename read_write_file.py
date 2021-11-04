@@ -52,7 +52,7 @@ def write_csv_file(url: str):
     """
 
     filea = open("total.csv", "w", encoding='utf-8')
-    filea.rea
+
     filea.write('№,ПІБ,Д,Заг.бал,С.б.док.осв.\n')
     for line in read_input_file(url, -1):
         ans = ''
