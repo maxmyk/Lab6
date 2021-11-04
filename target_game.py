@@ -19,8 +19,9 @@ def generate_grid() -> List[List[str]]:
         for _ in range(3):
             grid[i].append(chr(randint(97, 122)))
         grid.append([])
+    grid.pop()
+    print(grid)
     return grid
-
 
 def get_words(file: str, letters: List[str]) -> List[str]:
     """
@@ -28,7 +29,9 @@ def get_words(file: str, letters: List[str]) -> List[str]:
     """
     from collections import Counter
     words = set()
-    file = 'en'
+    # letters = [letters[0][0],letters[0][1],letters[0][2],
+    # letters[1][0],letters[1][1],letters[1][2],
+    # letters[2][0],letters[2][1],letters[2][2]]
     with open(file, "r", encoding='utf-8') as file:
         for line in file:
             line = line.lower()
@@ -40,9 +43,6 @@ def get_words(file: str, letters: List[str]) -> List[str]:
                     if line[i] != '-':
                         letters1.append(line[i])
                 letters1_occ = Counter(letters1)
-                # letters = [letters[0][0],letters[0][1],letters[0][2],
-                #            letters[1][0],letters[1][1],letters[1][2],
-                #            letters[2][0],letters[2][1],letters[2][2]]
                 letters_occ = Counter(letters)
                 if letters1_occ - letters_occ == Counter():
                     if len(line) % 2 != 0:
@@ -52,8 +52,9 @@ def get_words(file: str, letters: List[str]) -> List[str]:
                         if (line[len(line)//2] == letters[4]
                                 or line[len(line)//2-1] == letters[4]):
                             words.add(line)
-    return list(words)
-
+    return sorted(list(words))
+#get_words('en', [['w','u','m'],['r','o','v'],['k','i','f']])
+#get_words('en', [el for el in 'wumrovkif'])
 
 def get_user_words() -> List[str]:
     """
@@ -64,7 +65,8 @@ def get_user_words() -> List[str]:
     u_words = set()
     for line in stdin:
         u_words.add(line[:-1])
-    return u_words
+    #print(sorted(u_words))
+    return sorted(u_words)
 
 
 def get_pure_user_words(user_words: List[str
@@ -76,20 +78,25 @@ def get_pure_user_words(user_words: List[str
     that are not in dictionary.
     """
     words = set()
+    wfd = set(words_from_dict)
     for word in user_words:
-        for wordd in words_from_dict:
-            if word != wordd:
-                if len(word) % 2 != 0:
-                    if word[len(word)//2] != letters[4]:
-                        words.add(word)
-                else:
-                    if (word[len(word)//2] != letters[4]
-                            or word[len(word)//2-1] != letters[4]):
-                        words.add(word)
-    return list(words)
+        if word not in wfd and len(word) >= 4:
+            if len(word) % 2 != 0:
+                if word[len(word)//2] == letters[4]:
+                    words.add(word)
+            else:
+                if (word[len(word)//2] == letters[4]
+                        or word[len(word)//2-1] == letters[4]):
+                    words.add(word)
+            
+    #print(sorted(words))
+    return sorted(list(words))
 
 
 def results():
+    """
+    Prints results
+    """
     letters = generate_grid()
     letters = [letters[0][0], letters[0][1], letters[0][2],
                letters[1][0], letters[1][1], letters[1][2],
