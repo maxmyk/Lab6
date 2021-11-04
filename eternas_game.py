@@ -1,6 +1,7 @@
 from math import e
 from typing import List
 
+
 def board_generation() -> List[list]:
     """
     Generates a game board of 16 x 4 size, i.e. two dimensional
@@ -20,7 +21,7 @@ def board_generation() -> List[list]:
     board = [[] for _ in range(16)]
     for j in range(4):
         for i in range(16):
-            if j == 0: 
+            if j == 0:
                 randn = randrange(3)
                 if randn == 1 and white > 0:
                     board[i].append('w')
@@ -44,6 +45,7 @@ def board_generation() -> List[list]:
         board1 = board[i]
         board[i] = board1[::-1]
     return board
+
 
 def winning_combination(board: List[list]) -> bool:
     """
@@ -113,22 +115,26 @@ def winning_combination(board: List[list]) -> bool:
     combination = []
     for i in range(16):
         if board[i].count('w') == 4 or board[i].count('g') == 4:
-            combination.append([(0,i),(1,i),(2,i),(3,i)])
+            combination.append([(0, i), (1, i), (2, i), (3, i)])
     for i in range(16):
         for j in range(4):
-            if board[i][j] == board[(i+1)%16][j] == board[(i+2)%16][j] == board[(i+3)%16][j] != 0:
-                combination.append([(j,i),(j,(i+1)%16),(j,(i+2)%16),(j,(i+3)%16)])
+            if board[i][j] == board[(i+1) % 16][j] == board[(i+2) % 16][j] == board[(i+3) % 16][j] != 0:
+                combination.append(
+                    [(j, i), (j, (i+1) % 16), (j, (i+2) % 16), (j, (i+3) % 16)])
     for i in range(16):
-        if board[i][3] == board[(i+1)%16][2] == board[(i+2)%16][1] == board[(i+3)%16][0] != 0:
-            combination.append([(0,i),(1,(i+1)%16),(2,(i+2)%16),(3,(i+3)%16)])
+        if board[i][3] == board[(i+1) % 16][2] == board[(i+2) % 16][1] == board[(i+3) % 16][0] != 0:
+            combination.append(
+                [(0, i), (1, (i+1) % 16), (2, (i+2) % 16), (3, (i+3) % 16)])
     for i in range(16):
-        if board[i][0] == board[(i+1)%16][1] == board[(i+2)%16][2] == board[(i+3)%16][3] != 0:
-            combination.append([(3,i),(2,(i+1)%16),(1,(i+2)%16),(0,(i+3)%16)])
+        if board[i][0] == board[(i+1) % 16][1] == board[(i+2) % 16][2] == board[(i+3) % 16][3] != 0:
+            combination.append(
+                [(3, i), (2, (i+1) % 16), (1, (i+2) % 16), (0, (i+3) % 16)])
     ans = False
     if combination:
         ans = (True, combination)
     return ans
-    
+
+
 if __name__ == '__main__':
     import doctest
     print(doctest.testmod())
