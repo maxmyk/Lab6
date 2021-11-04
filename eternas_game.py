@@ -6,6 +6,7 @@ from typing import List
 Importing list
 """
 
+
 def board_generation() -> List[list]:
     """
     Generates a game board of 16 x 4 size, i.e. two dimensional
@@ -123,14 +124,17 @@ def winning_combination(board: List[list]) -> bool:
             combination.append([(0, i), (1, i), (2, i), (3, i)])
     for i in range(16):
         for j in range(4):
-            if board[i][j] == board[(i+1) % 16][j] == board[(i+2) % 16][j] ==  board[(i+3) % 16][j] != 0:
+            if board[i][j] == board[(i+1) % 16][j
+                ] == board[(i+2) % 16][j] == board[(i+3) % 16][j] != 0:
                 combination.append(
                     [(j, i), (j, (i+1) % 16), (j, (i+2) % 16), (j, (i+3) % 16)])
     for i in range(16):
-        if board[i][3] == board[(i+1) % 16][2] == board[(i+2) % 16][1] == board[(i+3) % 16][0] != 0:
+        if board[i][3] == board[(i+1) % 16][2
+            ] == board[(i+2) % 16][1] == board[(i+3) % 16][0] != 0:
             combination.append(
                 [(3, i), (2, (i+1) % 16), (1, (i+2) % 16), (0, (i+3) % 16)])
-        if board[i][0] == board[(i+1) % 16][1] == board[(i+2) % 16][2] == board[(i+3) % 16][3] != 0:
+        if board[i][0] == board[(i+1) % 16][1
+            ] == board[(i+2) % 16][2] == board[(i+3) % 16][3] != 0:
             combination.append(
                 [(0, i), (1, (i+1) % 16), (2, (i+2) % 16), (3, (i+3) % 16)])
     ans = False
