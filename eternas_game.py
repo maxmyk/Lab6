@@ -2,18 +2,49 @@ from typing import List
 
 def board_generation() -> List[list]:
     """
-    Generates a game board of 16 x 4 size, i.e. two dimensional list (array) of 'g's, 'w's and '0's  that is used for the game.
+    Generates a game board of 16 x 4 size, i.e. two dimensional
+    list (array) of 'g's, 'w's and '0's  that is used for the game.
 
     ### 16 x 4 | g - green, w - white, 0 - whitespace
 
-    e.g. [[0, 0, 0, 0], [0, 0, 0, 'w'], [0, 0, 'g', 'g'], [0, 0, 'g', 'g'],
-          [0, 'w', 'w', 'w'], [0, 0, 'w', 'g'], [0, 0, 0, 'g'], [0, 0, 'g', 'w'],
-          [0, 'g', 'g', 'w'], [0, 0, 0, 0], ['w', 'g', 'w', 'w'], [0, 0, 0, 'g'],
-          [0, 0, 0, 'g'], ['w', 'g', 'g', 'w'], [0, 'w', 'w', 'w'], [0, 0, 'g', 'w']]
+    e.g. [[0,  0,   0,   0 ], [ 0,   0,   0,  'w'], [ 0,   0,  'g', 'g'], [0, 0, 'g', 'g'],
+          [0, 'w', 'w', 'w'], [ 0,   0,  'w', 'g'], [ 0,   0,   0,  'g'], [0, 0, 'g', 'w'],
+          [0, 'g', 'g', 'w'], [ 0,   0,   0,   0 ], ['w', 'g', 'w', 'w'], [0, 0,  0,  'g'],
+          [0,  0,   0,  'g'], ['w', 'g', 'g', 'w'], [ 0,  'w', 'w', 'w'], [0, 0, 'g', 'w']]
 
     """
-    pass
-
+    from random import randrange
+    white = 16
+    green = 16
+    board = [[] for _ in range(16)]
+    for j in range(4):
+        for i in range(16):
+            #if board[i][j]
+            if j == 0: 
+                randn = randrange(3)
+                if randn == 1 and white > 0:
+                    board[i].append('w')
+                    white -= 1
+                elif green > 0:
+                    board[i].append('g')
+                    green -= 1
+                else:
+                    board[i].append(0)
+            else:
+                randn = randrange(3)
+                if randn == 1 and white > 0 and board[i][j-1] != 0:
+                    board[i].append('w')
+                    white -= 1
+                elif randn == 2 and green > 0 and board[i][j-1] != 0:
+                    board[i].append('g')
+                    green -= 1
+                else:
+                    board[i].append(0)
+    for i in range(16):
+        board1 = board[i]
+        board[i] = board1[::-1]
+    return board
+board_generation()
 
 def winning_combination(board: List[list]) -> bool:
     """
