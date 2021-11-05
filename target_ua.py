@@ -67,13 +67,16 @@ def check_user_words(user_words, language_part, letters, dict_of_words):
     """
     Checks if user words are proper and in dictionary
     list(), str, list(), list() -> list(), list()
-    >>> check_user_words([], "verb", ['щ', 'ш', 'ь', 'у', 'ц'], get_words("base.lst", ['щ', 'ш', 'ь', 'у', 'ц']))
-    ([], ['убити', 'убути', 'увити', 'удати', 'ужити', 'узути', 'узяти', 'улити', 'умити', 'уміти', 'упити', 'урити', 'утяти', 'ухати', 'учити', 'учути', 'ушити', 'уїсти', 'шити'])
+    >>> check_user_words([], "verb", ['щ', 'ш', 'ь', 'у', 'ц']\
+, get_words("base.lst", ['щ', 'ш', 'ь', 'у', 'ц']))
+    ([], ['убити', 'убути', 'увити', 'удати', 'ужити', 'узути',\
+ 'узяти', 'улити', 'умити', 'уміти', 'упити', 'урити', 'утяти',\
+ 'ухати', 'учити', 'учути', 'ушити', 'уїсти', 'шити'])
     """
     right = []
     not_guessed = []
     for elem in sorted(dict_of_words):
-        if elem[1] == language_part: 
+        if elem[1] == language_part:
             not_guessed.append(elem[0])
     for word in user_words:
         if word[0] in letters and len(word[0]) <= 5:
@@ -82,22 +85,7 @@ def check_user_words(user_words, language_part, letters, dict_of_words):
                     right.append(word)
                     not_guessed.remove(elem[0])
     return sorted(right), sorted(not_guessed)
-    # cor_use_words1 = []
-    # for i in range(len(user_words)):
-    #     if user_words[i][0] in letters:
-    #         cor_use_words1.append(user_words[i])
-    # cor_use_words2 = []
 
-    # for i in range(len(cor_use_words1)):
-    #     for j in range(len(dict_of_words)):
-    #         if cor_use_words1[i] == dict_of_words[j][0] and dict_of_words[j][1] == language_part:
-    #             cor_use_words2.append((cor_use_words1[i]))
-    # non_find_words = []
-    # for i in range(len(dict_of_words)):
-    #     if dict_of_words[i][1] == language_part and dict_of_words[i][0] not in cor_use_words2:
-    #         non_find_words.append(dict_of_words[i][0])
-
-    # return cor_use_words2, non_find_words
 
 if __name__ == "__main__":
     import doctest
