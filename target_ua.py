@@ -1,16 +1,22 @@
 """
 Target_ua
 """
+
+
 def generate_grid():
     """
-    generates grid
+    generates grid of five unique letters
+
+    >>> generate_grid()
+    ['г', 'ч', 'в', 'е', 'м']
     """
     from random import randint
     alphabet = 'абвгґдеєжзиіїйклмнопрстуфхцчшщьюя'
     field = set()
     while len(field) < 5:
-        field.add(alphabet[randint(0,len(alphabet)-1)])
-    return field
+        field.add(alphabet[randint(0, len(alphabet)-1)])
+    return list(field)
+
 
 def get_words(file, letters):
     """
@@ -30,10 +36,19 @@ def get_words(file, letters):
                     ans.add((line1[0], 'adjective'))
                 elif 'adv' in line1[1]:
                     ans.add((line1[0], 'adverb'))
-                else:pass
+                else:
+                    pass
     return list(ans)
 #print(get_words('base.lst', generate_grid()))
+
+
 def check_user_words(user_words, language_part, letters, dict_of_words):
     right = []
-    missed = []
     for word in user_words:
+        if word[0] in letters and len(word[0]) <= 5:
+            for elem in dict_of_words:
+                if elem[0] == word and elem[1] == language_part:
+                    right.append(word)
+                    dict_of_words.remove(elem)
+    return right, dict_of_words
+#print(check_user_words(['край', 'криза'], 'noun', ['з', 'к', 'я', 'п', 'л'], get_words('base.lst', ['з', 'к', 'я', 'п', 'л'])))
